@@ -42,6 +42,10 @@ body {
     background: #19181E
 }
 
+a {
+    color: aqua;
+}
+
 *,:after,:before {
     box-sizing: border-box
 }
@@ -3484,7 +3488,7 @@ footer .inner>p {
 }
 
 .fullscreen {
-    background-image: url("/assets/img/cpp.jpg");
+    background-image: url("../assets/img/cpp.jpg");
     background-size: cover;
     background-position: bottom right
 }
