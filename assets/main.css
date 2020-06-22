@@ -2437,7 +2437,7 @@ ul.actions {
 
 ul.actions li {
     display: inline-block;
-    vertical-align: middle
+    vertical-align: middle;
 }
 
 ul.actions li:last-child {
