@@ -6,19 +6,23 @@
     <meta author="Camille Nibungco, Christian Hill, Carter Slocum, Thuan Le" />
     <link rel="shortcut icon" href="/favicon.png" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <link
+    <!-- Google API Font Integration -->
+    <link 
       href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700%7CRoboto:300,400,500,700"
       rel="stylesheet"
-      type="text/css"
     />
+    <!-- This is basically icon pack from boostrap -->
     <link
       rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+    <!-- Our customized css -->
     <link rel="stylesheet" href="assets/main.css"/>
   </head>
-  <body>
+  <body class= "scroll-meister">
+    <!-- side bar to the left of our page-->
     <section id="sidebar">
+      <!-- Balance the content inside the middle of the view -->
       <div class="inner">
         <nav>
           <div class="nav-logo">
@@ -26,16 +30,18 @@
               <img src="assets/img/logo.png" alt="" />
             </p>
           </div>
-          <ul class="nav-menu scroll-meister">
-            <li><a href="#wrapper" class="active">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#meetings">Meetings</a></li>
-            <li><a href="#events">Events</a></li>
-            <li><a href="#contact">Contact</a></li>
+          <!-- scroll-meister is third-party libary that allows us to scroll smoother github: https://github.com//Prinzhorn/scrollmeister/  -->
+          <ul class="nav-menu" >
+            <li><a href= "/index.html/frontpage#wrapper" class="active">Home</a></li>
+            <li><a href="/index.html/about#about">About</a></li>
+            <li><a href="/index.html/meetings#meetings">Meetings</a></li>
+            <li><a href="/index.html/events#events">Events</a></li>
+            <li><a href="/index.html/contact#contact">Contact</a></li>
           </ul>
         </nav>
       </div>
     </section>
+
     <div id="wrapper">
       <div class="page page-index">
         <div class="section-container">
@@ -50,13 +56,13 @@
                 <hr />
                 <p></p>
                 <ul class="actions">
-                  <li class="scroll-meister">
+                  <li>
                     <a href="#meetings" class="button">Meetings</a>
                   </li>
-                  <li class="scroll-meister">
+                  <li>
                     <a href="#about" class="button">About CSS</a>
                   </li>
-                  <li class="scroll-meister">
+                  <li>
                     <a href="#contact" class="button">Contact Us</a>
                   </li>
                 </ul>
@@ -64,6 +70,7 @@
             </section>
           </div>
         </div>
+      
         <div id="about" class="section-container">
           <div class="container">
             <section class="wrapper">
