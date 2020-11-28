@@ -583,6 +583,10 @@ header {
         flex-flow: row nowrap;
     }
 
+    .officer-title {
+        color: var(--red);
+    }
+
     .e-board-description {
         margin-top: 3rem;
         transition: transform 0.75s ease-in-out, opacity 0.35s ease-in-out 0.35s;
@@ -662,7 +666,7 @@ header {
     .events-grid {
         display: grid;
         grid-template-columns: 1fr 1.5fr 1fr;
-        grid-template-rows: 1.5fr 1fr 1.25fr 1.5fr 1.5fr 1fr 1.75fr 2fr 1fr;
+        grid-template-rows: 1.5fr 1fr 2fr 1.5fr 1.5fr 1fr 1.75fr 2fr 1fr;
         text-align: center;
         width: 100%;
     }
