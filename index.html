@@ -18,7 +18,7 @@
 <nav class='header'>
     <!-- Logo -->
     <a class='smoothScroll' href='#top'>
-        <img src='assets/img/logo.png' alt='logo' class='logo'>
+        <img src='assets/img/logo.png' alt='logo' class='navbar-logo'>
     </a>
     <!-- Container for the actual navigation bar and the progress bar underneath it -->
     <div class='navbar-container'>
@@ -65,13 +65,13 @@
 </div>
 <!-- Home page -->
 <header id='top'>
+    <!-- Separate club logo for mobile website -->
+    <img src='assets/img/logo.png' alt='logo' class='mobile-logo'>
+
     <!-- Website Title and header -->
     <div class='inner'>
         <p>ASSOCIATION FOR COMPUTING MACHINERY CHAPTER</p>
-
-        <h1>COMPUTER</h1>
-        <h1>SCIENCE</h1>
-        <h1>SOCIETY</h1>
+        <h1>COMPUTER SCIENCE SOCIETY</h1>
         <h5>CAL POLY POMONA</h5>
 
         <a class='button smoothScroll' href='#about'>LEARN MORE</a>
@@ -259,7 +259,86 @@
 </section>
 <!-- Events section -->
 <section id='events'>
-    <!-- Main grid -->
+    <!-- background to be changed for mobile design -->
+    <div class='events-mobile-background'></div>
+    <!-- Mobile grid -->
+    <div class='events-title-container'>
+        <h1 class='events-title'>EVENTS</h1>
+    </div>
+    <p class='events-semester'>Semester: Fall 2020</p>
+    <!-- These are separate hidden events item containers for the mobile design -->
+        <!-- Computer Science Society Project Initiative (CSSPI) -->
+        <div class='mobile-events-item-container' id='mobile-csspi'>
+            <p class='mobile-events-item'>Computer Science Society Project Initiative (CSSPI)</p>
+            <div class='mobile-tooltip'><p>This series of events is to help students apply
+            their useful skills that they can learn outside of classes to solve something
+            interesting. Whether in education, the environment, or of their own problems. This
+            project initiative represents learning by doing. An example is learning the latest
+            frameworks and applying them to your full potential.</p></div>
+        </div>
+        <!-- Web Design -->
+        <div class='mobile-events-item-container' id='mobile-web-design'>
+            <p class='mobile-events-item'>Web Design</p>
+            <div class='mobile-tooltip'>If you are interested in learning how to design a
+            website and want to showcase some of your meaningful skills as part of our club, we
+            would love your contribution in making our website more innovative and interactive.
+            This event is to walk you through building a website and showcase it as part of our
+            club’s projects showcase.</div>
+        </div>
+        <!-- Speaker Events -->
+        <div class='mobile-events-item-container' id='mobile-speaker'>
+            <p class='events-item'>Speaker Events</p>
+            <div class='mobile-tooltip'>Want to know what it is like working as a Software
+            Engineer, Product Manager or Data Scientist? We have a series of speaker events where
+            each speaker will walk you through their experiences, talk about their daily
+            routines, and even share some of their advice to us students.</div>
+        </div>
+        <!-- Recruiter Events -->
+        <div class='mobile-events-item-container' id='mobile-recruiter'>
+            <p class='events-item'>Recruiter Events</p>
+            <div class='mobile-tooltip'>We want to ensure that you have some opportunities
+            besides what is already provided by the school to make connections with recruiters
+            who are interested in the work you are doing. You will get to learn about the
+            company’s culture and an opportunity to ask questions to help you learn more about
+            the company.</div>
+        </div>
+        <!-- Workshops -->
+        <div class='mobile-events-item-container' id='mobile-workshops'>
+            <p class='events-item'>Workshops</p>
+            <div class='mobile-tooltip'>Occasionally, there will be events where you get
+            to see other professionals apply their skills, either technically or some skills
+            assessments to guide you to the right paths. We hold technical workshops such as web
+            development, AI Implementation, and other career development for you to explore.</div>
+        </div>
+    <div class='mobile-events-grid'>
+        <div class='mobile-events-button-container' id='first-mobile-event'>
+            <p class='mobile-event-title'>CSSPI</p>
+            <p class='read-more'>Read more</p>
+            <div class='mobile-events-circle'></div>
+        </div>
+        <div class='mobile-events-button-container' id='second-mobile-event'>
+            <p class='mobile-event-title'>Speaker Events</p>
+            <p class='read-more'>Read more</p>
+            <div class='mobile-events-circle'></div>
+        </div>
+        <div class='mobile-events-button-container' id='third-mobile-event'>
+            <p class='mobile-event-title'>Workshops</p>
+            <p class='read-more'>Read more</p>
+            <div class='mobile-events-circle'></div>
+        </div>
+        <div class='mobile-events-button-container' id='fourth-mobile-event'>
+            <p class='mobile-event-title'>Recruiter Events</p>
+            <p class='read-more'>Read more</p>
+            <div class='mobile-events-circle'></div>
+        </div>
+        <div class='mobile-events-button-container' id='fifth-mobile-event'>
+            <p class='mobile-event-title'>Web Design</p>
+            <p class='read-more'>Read more</p>
+            <div class='mobile-events-circle'></div>
+        </div>
+    </div>
+    
+        <!-- Main grid -->
     <div class='events-grid'>
         <div class='events-title-container'>
             <h1 class='events-title'>EVENTS</h1>
@@ -322,7 +401,7 @@
         <div class='project-title-container'>
             <!-- CSS Club's Mobile Application -->
             <h2 class='project-title'>CSS Club’s Mobile Application</h2>
-            <div class='project-circle'></div>
+            <div class='circle'></div>
         </div>
         <ul class='project-description'>
             <li>
@@ -347,7 +426,7 @@
         <div class='project-title-container'>
             <!-- CSS Website redesign -->
             <h2 class='project-title'>CSS Website Redesign</h2>
-            <div class='project-circle'></div>
+            <div class='circle'></div>
         </div>
         <ul class='project-description'>
             <li>
@@ -363,26 +442,26 @@
                 Management Framework used : Google Drive, Github, Discord
             </li>
         </ul>
-        <img src='assets/img/old.jpg' alt='' class='project-image'>
+        <img src='assets/img/icpc.jpg' alt='' class='project-image'>
     </div>
     <div class='projects-banner-container'>
         <div class='projects-circle-border-container'>
             <div class='project-border'></div>
-            <div class='project-circle'></div>
+            <div class='circle'></div>
         </div>
         <div class='projects-circle-border-container' id='last'>
             <div class='project-border'></div>
-            <div class='project-circle'></div>
+            <div class='circle'></div>
         </div>
-        <div class='projects-banner-inner'>
+        <div class='decoration-circle-container'>
             <div class='second-border-width'></div>
             <div class='second-border-length'></div>
-            <div class='project-circle project-banner-circle size-large' id='circle-1'></div>
-            <div class='project-circle project-banner-circle' id='circle-2'></div>
-            <div class='project-circle project-banner-circle size-medium' id='circle-3'></div>
-            <div class='project-circle project-banner-circle size-medium' id='circle-4'></div>
-            <div class='project-circle project-banner-circle size-small' id='circle-5'></div>
-            <div class='project-circle project-banner-circle size-small' id='circle-6'></div>
+            <div class='circle decoration-circle size-large' id='circle-1'></div>
+            <div class='circle decoration-circle' id='circle-2'></div>
+            <div class='circle decoration-circle size-medium' id='circle-3'></div>
+            <div class='circle decoration-circle size-medium' id='circle-4'></div>
+            <div class='circle decoration-circle size-small' id='circle-5'></div>
+            <div class='circle decoration-circle size-small' id='circle-6'></div>
 
 
             <img class='projects-banner' src='assets/img/11377175_10203435304518305_4965010383617393659_n.jpg' alt=''>
@@ -391,7 +470,7 @@
 </section>
 <!-- Footer -->
 <footer id='contact-us'>
-    <div class='grid'>
+    <div class='footer-container'>
         <!-- Invisible divs that act like horizontal rules to left and right of comp sci logo -->
         <div class='footer-outline'></div>
         <div class='comp-sci-logo'><img src='assets/img/compsci.png' alt=''></div>
@@ -444,11 +523,11 @@
                     <a href='https://github.com/cpp-css' target='_blank'>
                         <img src='assets/img/github.svg' alt='github'>
                     </a>
-                    Computer Science Society GitHub
+                    cpp-css
                 </li>
             </ul>
         </div>
-        <!-- Footer navigation links -->
+        <!-- Footer navigation links for desktop -->
         <div class='footer-nav-links'>
             <ul>
                 <li>
@@ -468,8 +547,22 @@
                 </li>
             </ul>
         </div>
+        <!-- button to scroll to top for mobile -->
+        <a href='#top' class='top-button smoothScroll'>top</a>
     </div>
-    <div><p id='copyright'>COPYRIGHT 2020 COMPUTER SCIENCE SOCIETY. ALL RIGHTS RESERVED</p></div>
+    <!-- small circle shapes for decoration above mobile footer banner -->
+    <div class='decoration-circle-container'>
+        <div class='circle decoration-circle size-medium' id='footer-circle-1'></div>
+        <div class='circle decoration-circle size-medium' id='footer-circle-2'></div>
+        <div class='circle decoration-circle size-medium' id='footer-circle-3'></div>
+        <div class='circle decoration-circle size-small' id='footer-circle-4'></div>
+        <div class='circle decoration-circle size-small' id='footer-circle-5'></div>
+        <div class='circle decoration-circle size-small' id='footer-circle-6'></div>
+    </div>
+    <!-- image for mobile design only -->
+    <img class='mobile-footer-banner' src='assets/img/11377175_10203435304518305_4965010383617393659_n.jpg'
+    alt=''>
+    <div id='copyright'><p>COPYRIGHT 2020 COMPUTER SCIENCE SOCIETY. ALL RIGHTS RESERVED</p></div>
 </footer>
 </body>
 </html>

@@ -11,6 +11,7 @@
 7. Parallax scrolling effects
 8. Scrolling progress bar
 9. Dynamic scroll indicator at bottom of screen
+10. Mobile events section animations
 */
 
 // wait until the document is fully loaded to load the javascript code
@@ -33,8 +34,12 @@ $(document).ready(function() {
     const scrollIndicatorText = document.querySelector('.scroll-indicator');
     const scrollIndicatorArrow = document.querySelector('.arrow');
 
+    // get dimensions of user's viewport
     const viewportHeight = document.documentElement.clientHeight;
     const viewportWidth = document.documentElement.clientWidth;
+
+    // desktop media query
+    let desktop = window.matchMedia('(min-width: 768px)');
 
     /* 
     ====================================
@@ -48,8 +53,8 @@ $(document).ready(function() {
 
     const navbarOnScroll = new IntersectionObserver((entries, navbarOnScroll) => {
         entries.forEach(entry => {
-            // if the homepage is not on the viewport
-            if (!entry.isIntersecting) {
+            // if the homepage is not on the viewport and satisfies desktop media query size
+            if (!entry.isIntersecting && desktop.matches) {
                 navbar.classList.add('header-scrolled');
             } 
             else {
@@ -58,12 +63,13 @@ $(document).ready(function() {
         });
     }, homepageOptions);
 
-    navbarOnScroll.observe(homepage);    
+    // event listener so navigation bar animation only occurs on desktop window sizes
+    desktop.addEventListener('resize', navbarOnScroll.observe(homepage));    
 
     /* 
-    =================================================
-    3. Smooth scrolling to sections on button click
-    =================================================
+    ====================================================
+    3. Smooth scrolling to sections on button click/tap
+    ====================================================
     */
     const scrollButton = $('.smoothScroll');
 
@@ -291,39 +297,48 @@ $(document).ready(function() {
                     */
                     aboutTitle.style.transform = 
                             `translateY(${scrollbarLocation / (aboutOffset.top + aboutHeight) * -150 + 150}px)`;
-                    blueLine.style.transform = 
-                            `translateY(${scrollbarLocation / (aboutOffset.top + aboutHeight) * -150 + 150}px)`;
-                                
-                    blueLine.style.height = `${viewportHeight + scrollbarLocation * 0.1}vh`;
                     aboutDesc.style.transform = 
                             `translateY(${scrollbarLocation / (aboutOffset.top + aboutHeight) * -100 + 100}px)`;
 
-                    // scale the computer gif up if scroll position above section
-                    if (aboutOffset.top >= 0) {
-                        typingComputer.style.transform =
-                            `translateX(${scrollbarLocation / (aboutOffset.top + aboutHeight) * 150 - 150}px)
-                            scale(${scrollbarLocation / (aboutOffset.top + aboutHeight) * 0.5 + 0.5})`
+                    // do these animations only for desktop
+                    if (desktop.matches) {
+                        // translate blue line in desktop
+                        blueLine.style.transform = 
+                            `translateY(${scrollbarLocation / (aboutOffset.top + aboutHeight) * -150 + 150}px)`;
+                        blueLine.style.height = `${viewportHeight + scrollbarLocation * 0.1}vh`;
+                        // scale the computer gif up if scroll position above section
+                        if (aboutOffset.top >= 0) {
+                            typingComputer.style.transform =
+                                `translateX(${scrollbarLocation / (aboutOffset.top + aboutHeight) * 150 - 150}px)
+                                scale(${scrollbarLocation / (aboutOffset.top + aboutHeight) * 0.5 + 0.5})`
+                        }
+                        /* make the computer gif smaller up until the user has scrolled past the section by 25% of their viewport
+                        height */
+                        else if (aboutOffset.top >= -0.75 * viewportHeight) {
+                            typingComputer.style.transform =
+                                `translateX(${scrollbarLocation / (aboutOffset.top + aboutHeight) * -150 + 150}px)
+                                scale(${scrollbarLocation / (aboutOffset.top + aboutHeight) * -0.5 + 1.5})`;
+                        }
+                        else {
+                            typingComputer.style.transform =
+                                `translateX(${-250}px)
+                                scale(${0.5})`
+                            aboutTitle.style.transform = 'translateY(-150px)';
+                            blueLine.style.transform = 'translateY(-150px)';
+                            blueLine.style.height = '100vh';
+                            aboutDesc.style.transform = 'translateY(-100px)';
+                        }
                     }
-                    // make the computer gif smaller up until the user has scrolled past the section by 25% of their viewport height
-                    else if (aboutOffset.top >= -0.75 * viewportHeight) {
-                        typingComputer.style.transform =
-                            `translateX(${scrollbarLocation / (aboutOffset.top + aboutHeight) * -150 + 150}px)
-                            scale(${scrollbarLocation / (aboutOffset.top + aboutHeight) * -0.5 + 1.5})`;
-                    }
+                    // do these separate parallax effects only for mobile
                     else {
-                        typingComputer.style.transform =
-                            `translateX(${-250}px)
-                            scale(${0.5})`
-                        aboutTitle.style.transform = 'translateY(-150px)';
-                        blueLine.style.transform = 'translateY(-150px)';
-                        blueLine.style.height = '100vh';
-                        aboutDesc.style.transform = 'translateY(-100px)';
+                        typingComputer.style.transform = 
+                            `translateY(${scrollbarLocation / (aboutOffset.top + aboutHeight) * -150 + 150}px)`;
                     }
                 }
             });
         }, aboutOptions);
 
-        aboutObserver.observe(about);
+        desktop.addEventListener('resize', aboutObserver.observe(about));
 
         /* 
         ==========================
@@ -342,7 +357,7 @@ $(document).ready(function() {
 
         const missionObserver = new IntersectionObserver((entries, missionObserver) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
+                if (entry.isIntersecting && desktop.matches) {
                     // effects when scroll position is above the section
                     if (missionOffset.top <= viewportHeight) {
                         missionTitle.style.transform = 
@@ -370,7 +385,7 @@ $(document).ready(function() {
             });
         }, missionOptions);
 
-        missionObserver.observe(mission);
+        desktop.addEventListener('resize', missionObserver.observe(mission));
 
         /* 
         ==========================
@@ -536,6 +551,47 @@ $(document).ready(function() {
     }, contactUsIndicatorOptions);
 
     contactUsIndicator.observe(contactUs);
+
+    /* 
+    =====================================
+    10. Mobile events section animations
+    =====================================
+    */
+
+    // all the mobile event descriptions
+    const mobileCSSPI = document.querySelector('#mobile-csspi');
+    const mobileWebDesign = document.querySelector('#mobile-web-design');
+    const mobileSpeaker = document.querySelector('#mobile-speaker');
+    const mobilereCruiter = document.querySelector('#mobile-recruiter');
+    const mobileWorkshops = document.querySelector('#mobile-workshops');
+
+    // different colors to choose from for mobile events background when clicking on events
+    const recruiterColor = 'rgba(103, 121, 255, 0.8)';
+    const csspiColor = 'rgba(244, 143, 143, 0.8)';
+    const speakerColor = 'rgba(40, 240, 140, 0.8)';
+    const workshopsColor = 'rgba(255, 177, 77, 0.8)';
+    const webDesignColor = 'rgba(167, 0, 255, 0.8)';
+
+
+    const mobileEventsBackground = document.querySelector('.events-mobile-background');
+
+    const mobileEventsButtons = document.querySelectorAll('.mobile-events-button-container');
+
+    mobileEventsButtons.forEach(button => {
+        // function to run when it is clicked
+        button.addEventListener('click', () => {
+
+            // switch statement to figure out which event to display on click depending on id of button
+            switch (button.id) {
+                case 'first-mobile-event':
+                    mobileEventsBackground.style.backgroundColor = csspiColor;
+                    mobileEventsBackground.classList.add('events-mobile-background-active');
+                    mobileCSSPI.classList.add('mobile-events-item-container-active');
+                    break;
+            }
+        });
+    });
+
 });
 
 
