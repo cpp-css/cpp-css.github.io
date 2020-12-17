@@ -73,7 +73,7 @@ section {
 */
 
 /* 
-Navigation
+Navigation bar rules
 --------------- 
 */
 .header {
@@ -86,14 +86,76 @@ Navigation
     width: 100%;
     /* bottom 4 rules are important to fix the navigation bar to top of screen */
     position: fixed;
-    z-index: 10;
+    z-index: 30;
     background-color: rgba(0,0,0,0);
     /* transition to smoothly change background-color after header section */
-    transition: 450ms background-color  ease-in;
+    transition: 450ms background-color  ease-in-out;
 }
 
-.header-scrolled {
+.hamburger-menu-container {
+    position: fixed;
+    width: 2rem;
+    height: 1rem;
+    left: 1rem;
+    top: 1rem;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+}
+
+.hamburger-menu-line {
+    height: 3px;
+    width: 2rem;
+    background-color: #92D050;
+    transition: transform 1.5s ease-in-out, background-color 1.5s ease-in-out;
+}
+
+.navbar-scrolled {
     background-color: var(--dark-gray);
+}
+
+.navbar-container {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-image: linear-gradient(#438e66, black);
+    transition: transform 0.35s ease-in-out;
+    transform: translateX(-100%);
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+}
+
+.navbar-container-active {
+    transform: translateX(0);
+}
+
+.navigation-menu-exit-wrapper {
+    margin-top: 1rem;
+    margin-left: 1rem;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    width: 1rem;
+    height: 1rem;
+}
+
+.navigation-menu-exit-line-1,
+.navigation-menu-exit-line-2 {
+    height: 3px;
+    width: 2rem;
+    background-color: white;
+    transform-origin: 0% 50%;
+}
+
+.navigation-menu-exit-line-1 {
+    transform: rotate(45deg);
+}
+
+.navigation-menu-exit-line-2 {
+    transform: translateY(300%) rotate(-45deg);
 }
 
 .navbar-logo {
@@ -102,21 +164,21 @@ Navigation
 
 .navbar {
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: column nowrap;
     list-style-type: none;
     justify-content: space-between;
+    align-items: center;
 }
 
 .navbar-link {
-    font-size: 0.9rem;
     text-decoration: none;
     color: white;
-    margin: 0.25rem;
-}
-
-/* temporary */
-.navbar-item {
-    display: none;
+    text-transform: capitalize;
+    font-size: 3rem;
+    padding: 0.75rem;
+    width: 100vw;
+    display: block;
+    text-align: center;
 }
 
 /* temporarily hide stuff */
@@ -149,7 +211,7 @@ Buttons
     }
 
     to {
-        transform: translateY(-1.5rem);
+        transform: translateY(-0.5rem);
     }
 }
     
@@ -180,6 +242,10 @@ Buttons
     align-self: center;
     border-left: none;
     border-top: none;
+}
+
+.arrow:focus {
+    outline: none;
 }
 
 /* change color of next section indicator arrow in sections with light backgrounds */
@@ -263,11 +329,11 @@ header {
     color: var(--blue);
 }
 
-.blue-line {
+.about-blue-line {
     display: none;
 }
 
-.computer {
+.about-computer {
     display: initial;               /* remove after done with mobile design */
     order: 3;
 }
@@ -294,7 +360,7 @@ header {
     font-size: 2rem;
 }
 
-.card-item {
+.mission-card {
     text-align: center;
     display: flex;
     flex-flow: column nowrap;
@@ -306,11 +372,11 @@ header {
     padding-top: 25%;
 }
 
-.card-item > * {
+.mission-card > * {
     margin-bottom: 2rem;
 }
 
-.card-title {
+.mission-card-title {
     font-size: 1.5rem;
     border-bottom: 1px solid var(--dark-gray);
     padding: 0.25rem 1.5rem;
@@ -318,12 +384,12 @@ header {
     order: 2;
 }
 
-.card-description {
+.mission-card-description {
     text-align: left;
     order: 3;
 }
 
-.mission-image {
+.mission-card-image {
     display: initial;               /* remove after done with mobile design */
     max-height: 10rem;
     order: 1;
@@ -333,11 +399,101 @@ header {
 }
 
 /* this image requires different rules to align with the other mission images */
-.first-mission-image {
+.first-mission-card-image {
     left: 20%;
 }
 
 /* e-board section rules */
+#e-board {
+    display: flex;
+    flex-flow: column nowrap;
+    height: auto;
+}
+
+.e-board-section-container {
+    overflow: hidden;
+    order: 2;
+}
+
+.mobile-e-board-title {
+    margin: 2rem 0;
+    text-align: center;
+}
+
+.desktop-e-board-title {
+    display: none;
+}
+
+.e-board-gallery-container {
+    overflow: hidden;
+    order: 1;
+}
+
+.e-board-gallery {
+    display: flex;
+    align-self: flex-start;
+    flex-flow: row nowrap;
+    transition: all 0.75s ease-in-out;
+}
+
+.e-board-gallery-controls-container {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
+    justify-content: space-between;
+    margin: 0 auto;
+}
+
+.e-board-gallery-controls {
+    display: initial;
+}
+
+.e-board-picture {
+    display: initial;
+    object-fit: cover;
+    width: 50vw;
+    height: 50vw;
+    border-radius: 50%;
+    transition: all 0.75s ease-in-out;
+}
+
+.e-board-picture-active {
+    opacity: 1;
+}
+
+.e-board-picture-inactive {
+    opacity: 0;
+}
+
+.e-board-description-container {
+    display: flex;
+    flex-flow: row nowrap;
+    transition: all 0.75s ease-in-out;
+}
+
+.e-board-description-carousel {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.e-board-description {
+    font-size: 1rem;
+    transition: transform 0.75s ease-in-out, opacity 0.35s ease-in-out 0.35s;
+    width: 90vw;
+}
+
+.e-board-description-active {
+    opacity: 1;
+}
+
+.e-board-description-inactive {
+    opacity: 0;
+}
+
+.officer-title {
+    color: var(--red);
+    text-align: center;
+}
 
 /* events section rules */
 #events {
@@ -347,6 +503,7 @@ header {
     height: 100vh;
     position: relative;
     justify-content: space-between;
+    overflow-y: visible;
 }
 
 /* hide desktop events title */
@@ -445,7 +602,7 @@ header {
     background-color: rgba(170, 65, 226, 0.2);
 }
 
-.mobile-events-item-container {
+.mobile-events-desc-container {
     position: absolute;
     padding: 2rem;
     top: 10%;
@@ -477,9 +634,17 @@ header {
     background-color: #ff7d00;
 }
 
-.mobile-events-item-container-active {
+.mobile-events-desc-container-inactive {
+    opacity: 0;
+    z-index: -1;
+    /* different transition going from active to inactive, need to opacity to go to 0 first before changing z-index */
+    transition: opacity 0.5s ease-in-out, z-index 0.5s ease-in-out 0.5s;
+}
+
+.mobile-events-desc-container-active {
     opacity: 1;
     z-index: 2;
+    transition: opacity 0.5s ease-in-out;
 }
 
 .mobile-events-item {
@@ -489,18 +654,27 @@ header {
 }
 
 .events-mobile-background {
-    height: 100vh;
-    width: 100vw;
+    /* make the height extra long so the transparent effect covers all of viewport
+    until user stops viewing event */
     position: absolute;
+    top: -100%;
+    left: 0;
+    right: 0;
+    bottom: -100%;
     background-color: rgba(244, 143, 143, 0.8);
-    transition: opacity 0.5s ease-in-out;
+}
+
+.events-mobile-background-inactive {
     opacity: 0;
     z-index: -1;
+    /* different transition going from active to inactive, need to opacity to go to 0 first before changing z-index */
+    transition: opacity 0.5s ease-in-out, z-index 0.5s ease-in-out 0.5s;
 }
 
 .events-mobile-background-active {
     opacity: 1;
-    z-index: 2; 
+    z-index: 1; 
+    transition: opacity 0.5s ease-in-out;
 }
 
 /* projects section rules */
@@ -512,7 +686,7 @@ header {
 }
 
 .projects-title-container {
-    color: var(--green);
+    color: black;
     margin-top: 1rem;
 }
 
@@ -532,15 +706,23 @@ header {
     font-size: 0.75rem;
     padding: 0.15rem;
     color: var(--gray);
-    border-bottom: 2px solid var(--green);
+    border-bottom: 1px solid  #7cebff;
     margin: 0 auto;
     margin-bottom: 1rem;
     width: 75%;
     text-align: center;
 }
 
+#second-project {
+    border-color: var(--green);
+}
+
 .project-description {
     margin-bottom: 2rem;
+}
+
+.project-description li {
+    margin-bottom: 1rem;
 }
 
 .project-image {
@@ -719,11 +901,17 @@ footer ul {
 .mobile-footer-banner {
     display: initial;
     width: 100%;
+    transform: translateY(2%);
 }
 
 #copyright {
     font-size: 0.7rem;
     position: absolute;
+    text-align: center;
+    width: 95%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
     bottom: 0;
     z-index: 1;
 }
@@ -757,15 +945,27 @@ footer ul {
         margin-left: 4rem;
     }
 
+    .hamburger-menu-container {
+        display: none;
+    }
+
+    .navigation-menu-exit-wrapper {
+        display: none;
+    }
+
     .navbar-container {
         display: flex;
         flex-flow: column nowrap;
         justify-content: space-around;
         margin-right: 4rem;
+        position: initial;
+        transform: none;
+        background-image: none;
     }
 
     .navbar {
         margin-bottom: 5px;
+        flex-flow: row nowrap;
     }
 
     .navbar-item {
@@ -776,6 +976,14 @@ footer ul {
     /* get rid of right margin on last navbar item */
     .navbar-item:last-of-type {
         margin-right: 0;
+    }
+
+    .navbar-link {
+        font-size: 1rem;
+        display: inline;
+        padding: 0;
+        margin-right: 1rem;
+        width: auto;
     }
 
     .navbar-link:hover {
@@ -870,7 +1078,7 @@ footer ul {
     }
 
     /* blue line connected to question mark */
-    .blue-line {
+    .about-blue-line {
         display: initial;
         position: absolute;
         top: 23%;
@@ -882,15 +1090,21 @@ footer ul {
     }
 
     .about-desc-wrapper {
+        font-size: 2rem;
+        color: var(--gray);
         position: absolute;
         top: 30%;
         right: 10%;
         width: 60%;
+        height: 50vh;
         background-color: white;
         padding: 3rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
-    .computer {
+    .about-computer {
         max-height: 25rem;
         position: absolute;
         top: 15%;
@@ -949,7 +1163,7 @@ footer ul {
         align-items: center;
     }
 
-    .card-item {
+    .mission-card {
         margin: 2rem;
         width: 18rem;
         height: 30rem;
@@ -963,15 +1177,15 @@ footer ul {
         box-shadow: 0px 0px 5px 4px #e9e9e9;
     }
 
-    .card-item > * {
+    .mission-card > * {
         margin-bottom: 0;
     }
 
-    .card-item:hover {
+    .mission-card:hover {
         box-shadow: 0px 0px 10px 10px #e9e9e9;
     }
 
-    .card-title {
+    .mission-card-title {
         margin: 0;
         padding: 0;
         border: none;
@@ -983,11 +1197,11 @@ footer ul {
         order: initial;
     }
 
-    .card-title-hover {
+    .mission-card-title-hover {
         transform: translateY(0);
     }
 
-    .card-description {
+    .mission-card-description {
         font-size: 0.8rem;
         transition: all 0.5s ease-in-out;
         color: transparent;
@@ -997,13 +1211,13 @@ footer ul {
         order: initial;
     }
 
-    .card-description-hover {
+    .mission-card-description-hover {
         color: black;
         transform: translateY(0);
         opacity: 1;
     }
 
-    .mission-image {
+    .mission-card-image {
         max-height: 8rem;
         transition: all 0.5s ease-in-out;
         transform: translateY(-3rem);
@@ -1011,28 +1225,27 @@ footer ul {
         position: initial;
     }
 
-    .mission-image-hover {
+    .mission-card-image-hover {
         transform: translateY(1rem);
     }
 
     /* The globe image in the first mission card requires different rules to match alignment
     with other cards */
-    .first-mission-image {
+    .first-mission-card-image {
         transform: translateY(-2rem);
     }
 
-    .first-mission-image-hover {
+    .first-mission-card-image-hover {
         transform: translateY(1rem);
     }
 
     /* e-board section rules */
-
     #e-board {
-        display: flex;
         flex-flow: row nowrap;
         justify-content: space-between;
         align-items: center;
         position: relative;
+        height: 100vh;
     }    
 
     #e-board img {
@@ -1056,53 +1269,35 @@ footer ul {
         display: flex;
         flex-flow: column nowrap;
         margin-left: 3rem;
-        overflow: hidden;
+        order: initial;
     }
 
-    .e-board-title {
+    .mobile-e-board-title {
+        display: none;
+    }
+
+    .desktop-e-board-title {
+        display: initial;
         font-size: 2.5rem;
-    }
-
-    .e-board-description-container {
-        display: flex;
-        flex-flow: row nowrap;
-        transition: all 0.75s ease-in-out;
-    }
-
-    .e-board-description-carousel {
-        display: flex;
-        flex-flow: row nowrap;
+        margin-top: none;
     }
 
     .officer-title {
-        color: var(--red);
+        text-align: left;
     }
 
     .e-board-description {
         margin-top: 3rem;
-        transition: transform 0.75s ease-in-out, opacity 0.35s ease-in-out 0.35s;
         width: 35vw;
-    }
-
-    .e-board-description-active {
-        opacity: 1;
-    }
-
-    .e-board-description-inactive {
-        opacity: 0;
     }
 
     .e-board-gallery-container {
         display: flex;
         flex-flow: column nowrap;
-        overflow: hidden;
+        order: initial;
     }
 
     .e-board-gallery {
-        display: flex;
-        align-self: flex-start;
-        flex-flow: row nowrap;
-        transition: 0.75s ease-in-out;
         margin-left: 5vw;
     }
 
@@ -1111,11 +1306,10 @@ footer ul {
         width: 20rem;
         height: 25rem;
         margin: 0 0.1rem;
-        transition: all 0.75s ease-in-out;
+        border-radius: 0%;
     }
 
     .e-board-picture-active {
-        opacity: 1;
         transform: scale(1);
     }
 
@@ -1126,9 +1320,9 @@ footer ul {
 
     .e-board-gallery-controls-container {
         align-self: flex-start;
-        margin-left: 6vw;
-        display: flex;
+        margin-left: 7vw;
         flex-flow: row nowrap;
+        justify-content: flex-start;
     }
 
     .e-board-gallery-controls {
@@ -1188,7 +1382,7 @@ footer ul {
         display: none;
     }
 
-    .mobile-events-item-container {
+    .mobile-events-desc-container {
         display: none;
     }
 
@@ -1444,7 +1638,7 @@ footer ul {
         height: auto;
         margin: 0;
         flex-flow: row nowrap;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
         padding: 3rem 0;
         border: 5px solid white;
@@ -1626,7 +1820,7 @@ footer ul {
 
     .comp-sci-logo {
         margin: 0 auto;
-        order: initial;
+        order: unset;
     }
 
     .footer-container li {
@@ -1636,7 +1830,7 @@ footer ul {
     }
 
     .email-container {
-        order: initial;
+        order: unset;
         display: flex;
         flex-flow: column nowrap;
     }
@@ -1647,6 +1841,7 @@ footer ul {
         border: none;
         border-bottom: 1px solid rgba(255, 255, 255, 0.4);
         color: white;
+        font-size: 1rem;
     }
 
     #email-submit {
@@ -1661,7 +1856,7 @@ footer ul {
     }
 
     .css-socials {
-        order: initial;
+        order: unset;
     }
 
     .css-socials li {
@@ -1706,5 +1901,12 @@ footer ul {
         margin: auto 4rem;
         padding: 2rem 0;
         position: initial;
+    }
+}
+
+/* set different root font size for large resolutions */
+@media only screen and (min-width: 1920px) {
+    html {
+        font-size: 22px;
     }
 }
