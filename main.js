@@ -175,7 +175,7 @@ $(document).ready(function() {
 
     // separate options and observer for e-board section for different behavior when scrolling up or down
     const separateOptions = {
-        threshold: [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
+        threshold: [0.1, 0.2, 0.4, 0.6, 0.8, 1.0]
     };
 
     // variables to compare currentY to to determine scroll direction
