@@ -230,6 +230,7 @@ Buttons
     animation-timing-function: ease-in-out;
     animation-duration: 2s;
     color: white;
+    opacity: 1;
 }
 
 .arrow {
@@ -242,6 +243,7 @@ Buttons
     align-self: center;
     border-left: none;
     border-top: none;
+    opacity: 1;
 }
 
 .arrow:focus {
@@ -320,6 +322,7 @@ header {
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-around;
+    align-items: center;
     background-color: white;
     text-align: center;
 }
@@ -334,6 +337,7 @@ header {
 }
 
 .about-computer {
+    max-width: 20rem;
     display: initial;               /* remove after done with mobile design */
     order: 3;
 }
@@ -344,6 +348,7 @@ header {
     margin: 0 auto;
     font-size: 1.1rem;
     padding: 1rem;
+    z-index: 1;
 }
 
 /* mission section rules */
@@ -416,7 +421,7 @@ header {
 }
 
 .mobile-e-board-title {
-    margin: 2rem 0;
+    margin-top: 2rem;
     text-align: center;
 }
 
@@ -434,6 +439,12 @@ header {
     align-self: flex-start;
     flex-flow: row nowrap;
     transition: all 0.75s ease-in-out;
+    position: relative;
+    height: 30vh;
+}
+
+.e-board-gallery-counter {
+    text-align: center;
 }
 
 .e-board-gallery-controls-container {
@@ -452,9 +463,12 @@ header {
     display: initial;
     object-fit: cover;
     width: 50vw;
-    height: 50vw;
-    border-radius: 50%;
+    height: 35vh;
     transition: all 0.75s ease-in-out;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
 }
 
 .e-board-picture-active {
@@ -474,6 +488,7 @@ header {
 .e-board-description-carousel {
     display: flex;
     flex-flow: row nowrap;
+    padding-left: 0.5rem;
 }
 
 .e-board-description {
@@ -493,6 +508,11 @@ header {
 .officer-title {
     color: var(--red);
     text-align: center;
+}
+
+#prathista,
+#ketan {
+    font-size: 0.85rem;
 }
 
 /* events section rules */
@@ -1286,9 +1306,18 @@ footer ul {
         text-align: left;
     }
 
+    .e-board-description-carousel {
+        padding-left: none;
+    }
+
     .e-board-description {
         margin-top: 3rem;
         width: 35vw;
+    }
+
+    #prathista,
+    #ketan {
+        font-size: 1rem;
     }
 
     .e-board-gallery-container {
@@ -1299,6 +1328,7 @@ footer ul {
 
     .e-board-gallery {
         margin-left: 5vw;
+        height: auto;
     }
 
     .e-board-picture {
@@ -1307,6 +1337,7 @@ footer ul {
         height: 25rem;
         margin: 0 0.1rem;
         border-radius: 0%;
+        position: unset;
     }
 
     .e-board-picture-active {
@@ -1318,9 +1349,14 @@ footer ul {
         opacity: 0.3;
     }
 
+    .e-board-gallery-counter {
+        text-align: center;
+        margin-right: 2vw;
+    }
+
     .e-board-gallery-controls-container {
         align-self: flex-start;
-        margin-left: 7vw;
+        margin-left: 6vw;
         flex-flow: row nowrap;
         justify-content: flex-start;
     }
@@ -1408,11 +1444,10 @@ footer ul {
     .events-item {
         display: block;         /* display: block to hide the tooltip behind the event item */
         cursor: pointer;
-        padding-bottom: 0.35rem;
         background-color: transparent;
         transition: all 0.25s ease-in-out;
         border-bottom: none;
-        margin: 0;
+        margin-bottom: 0.3rem;
         font-weight: normal;
     }
 

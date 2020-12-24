@@ -89,14 +89,19 @@ $(document).ready(function() {
         threshold: 0.01
     };
 
-    const scrollIndicator = new IntersectionObserver((sections, scrollIndicator) => {
-        sections.forEach(section => {
+    const projectsOptions = {
+        // make sure the whole projects section is on screen
+        threshold: 0.5
+    };
+
+    const scrollIndicator = new IntersectionObserver((entries, scrollIndicator) => {
+        entries.forEach(entry => {
             // First, check if the user is on a desktop window size or mobile
             if (desktop.matches) {
             // user is on desktop
-                if (section.isIntersecting) {
+                if (entry.isIntersecting) {
                     // Figure out what section is currently being observed
-                    switch (section.target.id) {
+                    switch (entry.target.id) {
                         case 'about':
                             // change color of scroll indicator and link to the next section
                             scrollIndicatorText.style.color = 'black';
@@ -120,22 +125,21 @@ $(document).ready(function() {
                             break;
                         case 'projects':
                             scrollIndicatorText.style.color = 'white';
-                            scrollIndicatorText.style.opacity = '1';
                             scrollIndicatorArrow.style.borderColor = 'white';
-                            scrollIndicatorArrow.style.opacity = '1';
                             scrollIndicatorArrow.href = '#contact-us';
                             break;
                         case 'contact-us':
                             scrollIndicatorText.style.opacity = '0';
                             scrollIndicatorArrow.style.opacity = '0';
+                            break;
                     }
                 }
             }
             else {
                 // user is on mobile
-                if (section.isIntersecting) {
+                if (entry.isIntersecting) {
                     // Figure out what section is currently being observed
-                    switch (section.target.id) {
+                    switch (entry.target.id) {
                         case 'about':
                             // change color of scroll indicator and link to the next section
                             scrollIndicatorText.style.color = 'black';
@@ -146,11 +150,6 @@ $(document).ready(function() {
                             scrollIndicatorText.style.color = 'black';
                             scrollIndicatorArrow.style.borderColor = 'black';
                             scrollIndicatorArrow.href = '#e-board';
-                            break;
-                        case 'e-board':
-                            scrollIndicatorText.style.color = 'black';
-                            scrollIndicatorArrow.style.borderColor = 'black';
-                            scrollIndicatorArrow.href = '#events';
                             break;
                         case 'events':
                             scrollIndicatorText.style.color = 'black';
@@ -167,30 +166,70 @@ $(document).ready(function() {
                         case 'contact-us':
                             scrollIndicatorText.style.opacity = '0';
                             scrollIndicatorArrow.style.opacity = '0';
+                            break;
                     }
                 }
             }
         });
     }, sectionOptions);
+
+    // separate options and observer for e-board section for different behavior when scrolling up or down
+    const separateOptions = {
+        threshold: [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
+    };
+
+    // variables to compare currentY to to determine scroll direction
+    let previousY = 0;
+    let previousRatio = 0;
+
+    const separateObserver = new IntersectionObserver((entries, eBoardObserver) => {
+        entries.forEach(entry => {
+            const currentY = entry.boundingClientRect.y;
+            const currentRatio = entry.intersectionRatio;
+            switch (entry.target.id) {
+                case 'e-board':
+                    scrollIndicatorArrow.href = '#events';
+                    // scrolling up
+                    if (currentY < previousY) {
+                        scrollIndicatorText.style.color = 'white';
+                        scrollIndicatorArrow.style.borderColor = 'white';
+                    }
+                    // scrolling down
+                    else if (currentY > previousY && entry.isIntersecting) {
+                        scrollIndicatorText.style.color = 'black';
+                        scrollIndicatorArrow.style.borderColor = 'black';
+                    }
+                    break;
+                case 'projects':
+                    // scrolling up
+                    if (currentY < previousY) {
+                        scrollIndicatorText.style.opacity = '1';
+                        scrollIndicatorArrow.style.opacity = '1';
+                    }    
+                    break;
+            }
+            
+        });
+    }, separateOptions);
     
     // call intersection observer for each section of the website to update scroll indicator at bottom of screen
     scrollIndicator.observe(about);
     scrollIndicator.observe(mission);
-    scrollIndicator.observe(eboard);
+    separateObserver.observe(eboard);
     scrollIndicator.observe(events);
-    scrollIndicator.observe(projects);
+    separateObserver.observe(projects);
     scrollIndicator.observe(contactUs);
-
     /* 
     --------------------------------------------------------------
     3. Smooth scrolling to sections on button and link click/tap
     --------------------------------------------------------------
     */
     const scrollButton = $('.smoothScroll');
+    let $root = $('body, html');
 
     scrollButton.click(function(event) {
         event.preventDefault();
-        $('body,html').animate({
+        $root.animate({
             scrollTop: $(this.hash).offset().top
         // how much time it takes to smooth scroll in milliseconds
         }, 1500);
@@ -400,13 +439,13 @@ $(document).ready(function() {
     const eboardDescriptions = document.querySelectorAll('.e-board-description');
     const eboardCarousel = document.querySelector('.e-board-gallery');
     const eboardPhotos = document.querySelectorAll('.e-board-picture');
+    const eboardCounter = document.querySelector('.e-board-gallery-counter');
     const leftBttn = document.querySelector('#e-board-gallery-left-button');
     const rightBttn = document.querySelector('#e-board-gallery-right-button');
 
     // counter and size variables for array eboardPhotos
     let counter = 0;
     let photoSize = eboardPhotos[0].clientWidth;
-    console.log(photoSize);
     let paragraphSize = eboardDescriptions[0].clientWidth;
 
     // event listeners to buttons
@@ -421,8 +460,13 @@ $(document).ready(function() {
 
             // translate to the previous picture and paragraph
             counter--;
-            eboardCarousel.style.transform = `translateX(${-photoSize * counter}px)`
-            eboardDescContainer.style.transform = `translateX(${-paragraphSize * counter}px)`
+            // if the user is on desktop, translate the e-board photos, otherwise only change opacity
+            if (desktop.matches) {
+                eboardCarousel.style.transform = `translateX(${-photoSize * counter}px)`;
+            }
+            eboardDescContainer.style.transform = `translateX(${-paragraphSize * counter}px)`;
+            // update e-board gallery counter below the pictures
+            eboardCounter.innerHTML = `${counter + 1} / 8`;
 
             /* increment counter and add the active photo class and remove the inactive class from the
             element */
@@ -434,6 +478,14 @@ $(document).ready(function() {
     });
 
     rightBttn.addEventListener('click', ()=> {
+        if (desktop.matches) {
+            // user is on desktop window size
+
+        }
+        else {
+            // user is on mobile
+            
+        }
         // stop the translation if clicking right button when user has reached the end
         if (counter <= eboardDescriptions.length - 2) {
             // remove active class and add inactive class to the previous image
@@ -443,7 +495,10 @@ $(document).ready(function() {
             eboardDescriptions[counter].classList.remove('e-board-description-active');
 
             // translate to the next picture
-            eboardCarousel.style.transform = `translateX(${-photoSize * (counter + 1)}px)`
+            // if the user is on desktop, translate the e-board photos, otherwise only change opacity
+            if (desktop.matches) {
+                eboardCarousel.style.transform = `translateX(${-photoSize * (counter + 1)}px)`
+            }
             eboardDescContainer.style.transform = `translateX(${-paragraphSize * (counter + 1)}px)`
 
             /* increment counter and add the active photo class and remove the inactive class from the
@@ -453,6 +508,9 @@ $(document).ready(function() {
             eboardPhotos[counter].classList.remove('e-board-picture-inactive');
             eboardDescriptions[counter].classList.add('e-board-description-active');
             eboardDescriptions[counter].classList.remove('e-board-description-inactive');
+
+            // update e-board gallery counter below pictures
+            eboardCounter.innerHTML = `${counter + 1} / 8`;
         }
     });
 
@@ -545,14 +603,14 @@ $(document).ready(function() {
                         // scale the computer gif up if scroll position above section
                         if (aboutOffset.top >= 0) {
                             typingComputer.style.transform =
-                                `translateX(${scrollbarLocation / (aboutOffset.top + aboutHeight) * 150 - 150}px)
+                                `translateX(${scrollbarLocation / (aboutOffset.top + aboutHeight) * 150 - 140}px)
                                 scale(${scrollbarLocation / (aboutOffset.top + aboutHeight) * 0.5 + 0.5})`
                         }
                         /* make the computer gif smaller up until the user has scrolled past the section by 25% of their viewport
                         height */
                         else if (aboutOffset.top >= -0.75 * viewportHeight) {
                             typingComputer.style.transform =
-                                `translateX(${scrollbarLocation / (aboutOffset.top + aboutHeight) * -150 + 150}px)
+                                `translateX(${scrollbarLocation / (aboutOffset.top + aboutHeight) * -150 + 160}px)
                                 scale(${scrollbarLocation / (aboutOffset.top + aboutHeight) * -0.5 + 1.5})`;
                         }
                         else {
@@ -570,7 +628,7 @@ $(document).ready(function() {
                     else {
                         // do these separate parallax effects only for mobile
                         typingComputer.style.transform = 
-                            `translateY(${scrollbarLocation / (aboutOffset.top + aboutHeight) * -150 + 150}px)`;
+                            `translateY(${scrollbarLocation / (aboutOffset.top + aboutHeight) * -150 + 120}px)`;
                     }
                 }
             });
