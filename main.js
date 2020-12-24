@@ -113,11 +113,6 @@ $(document).ready(function() {
                             scrollIndicatorArrow.style.borderColor = 'black';
                             scrollIndicatorArrow.href = '#e-board';
                             break;
-                        case 'e-board':
-                            scrollIndicatorText.style.color = 'black';
-                            scrollIndicatorArrow.style.borderColor = 'black';
-                            scrollIndicatorArrow.href = '#events';
-                            break;
                         case 'events':
                             scrollIndicatorText.style.color = 'white';
                             scrollIndicatorArrow.style.borderColor = 'white';
@@ -179,15 +174,21 @@ $(document).ready(function() {
     };
 
     // variables to compare currentY to to determine scroll direction
-    let previousY = 0;
     let previousRatio = 0;
 
     const separateObserver = new IntersectionObserver((entries, eBoardObserver) => {
         entries.forEach(entry => {
+            let previousY = entry.getBoundingClientRect();
+
+            console.log(previousY.offsetHeight);
+
+
             const currentY = entry.boundingClientRect.y;
             const currentRatio = entry.intersectionRatio;
+            console.log(entry.target);
             switch (entry.target.id) {
                 case 'e-board':
+                    console.log('line 186');
                     scrollIndicatorArrow.href = '#events';
                     // scrolling up
                     if (currentY < previousY) {
@@ -553,10 +554,13 @@ $(document).ready(function() {
         }
     });
 
+    let scrollbarLocation = window.pageYOffset;
+    console.log(scrollbarLocation);
+
     $(document).scroll(function() {
 
         // get current scrollbar location
-        let scrollbarLocation = window.pageYOffset;
+        // let scrollbarLocation = window.pageYOffset;
 
         /* 
         ===============================

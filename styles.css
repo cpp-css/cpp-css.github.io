@@ -488,7 +488,7 @@ header {
 .e-board-description-carousel {
     display: flex;
     flex-flow: row nowrap;
-    padding-left: 0.5rem;
+    padding-left: 0.1rem;
 }
 
 .e-board-description {
