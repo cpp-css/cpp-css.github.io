@@ -20,10 +20,3 @@ src='https://camo.githubusercontent.com/6bdf06db9f84d12599cdedc3007455513a1f03b4
 <img  alt='CSS3' width='26px' title='CSS3' src='https://raw.githubusercontent.com/devicons/devicon/ac557d6ff33ff370a5db99f97aeab35ea5c67fbd/icons/css3/css3-original.svg'>CSS3
 
 <img  alt='Javascript' width='26px' title='Javascript' src='https://raw.githubusercontent.com/devicons/devicon/ac557d6ff33ff370a5db99f97aeab35ea5c67fbd/icons/javascript/javascript-original.svg'>Javascript
-
-<style>
-    img {
-        float: left;
-        margin-right: 30px;
-    }
-</style>
