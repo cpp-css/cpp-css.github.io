@@ -89,11 +89,6 @@ $(document).ready(function() {
         threshold: 0.01
     };
 
-    const projectsOptions = {
-        // make sure the whole projects section is on screen
-        threshold: 0.5
-    };
-
     const scrollIndicator = new IntersectionObserver((entries, scrollIndicator) => {
         entries.forEach(entry => {
             // First, check if the user is on a desktop window size or mobile
@@ -114,18 +109,10 @@ $(document).ready(function() {
                             scrollIndicatorArrow.href = '#e-board';
                             break;
                         case 'events':
-                            scrollIndicatorText.style.color = 'white';
-                            scrollIndicatorArrow.style.borderColor = 'white';
                             scrollIndicatorArrow.href = '#projects';
                             break;
                         case 'projects':
-                            scrollIndicatorText.style.color = 'white';
-                            scrollIndicatorArrow.style.borderColor = 'white';
                             scrollIndicatorArrow.href = '#contact-us';
-                            break;
-                        case 'contact-us':
-                            scrollIndicatorText.style.opacity = '0';
-                            scrollIndicatorArrow.style.opacity = '0';
                             break;
                     }
                 }
@@ -146,6 +133,11 @@ $(document).ready(function() {
                             scrollIndicatorArrow.style.borderColor = 'black';
                             scrollIndicatorArrow.href = '#e-board';
                             break;
+                        case 'e-board':
+                            scrollIndicatorText.style.color = 'black';
+                            scrollIndicatorArrow.style.borderColor = 'black';
+                            scrollIndicatorArrow.href = '#events';
+                            break;
                         case 'events':
                             scrollIndicatorText.style.color = 'black';
                             scrollIndicatorArrow.style.borderColor = 'black';
@@ -153,14 +145,8 @@ $(document).ready(function() {
                             break;
                         case 'projects':
                             scrollIndicatorText.style.color = 'black';
-                            scrollIndicatorText.style.opacity = '1';
                             scrollIndicatorArrow.style.borderColor = 'black';
-                            scrollIndicatorArrow.style.opacity = '1';
                             scrollIndicatorArrow.href = '#contact-us';
-                            break;
-                        case 'contact-us':
-                            scrollIndicatorText.style.opacity = '0';
-                            scrollIndicatorArrow.style.opacity = '0';
                             break;
                     }
                 }
@@ -169,57 +155,67 @@ $(document).ready(function() {
     }, sectionOptions);
 
     // separate options and observer for e-board section for different behavior when scrolling up or down
-    const separateOptions = {
+    const eBoardOptions = {
         threshold: [0.1, 0.2, 0.4, 0.6, 0.8, 1.0]
     };
 
-    // variables to compare currentY to to determine scroll direction
+    // variable to compare currentY to determine scroll direction
     let previousRatio = 0;
 
-    const separateObserver = new IntersectionObserver((entries, eBoardObserver) => {
+    const eboardObserver = new IntersectionObserver((entries, eBoardObserver) => {
         entries.forEach(entry => {
-            let previousY = entry.getBoundingClientRect();
-
-            console.log(previousY.offsetHeight);
-
-
+            let previousY = 0;
             const currentY = entry.boundingClientRect.y;
             const currentRatio = entry.intersectionRatio;
-            console.log(entry.target);
-            switch (entry.target.id) {
-                case 'e-board':
-                    console.log('line 186');
+
+            // different behavior on desktop
+            if (entry.isIntersecting) {
+                // scrolling up
+                if (currentY < previousY) {
+                    scrollIndicatorText.style.color = 'white';
+                    scrollIndicatorArrow.style.borderColor = 'white';
+                }
+                // scrolling down
+                else if (currentY > previousY && entry.isIntersecting) {
+                    scrollIndicatorText.style.color = 'black';
+                    scrollIndicatorArrow.style.borderColor = 'black';
                     scrollIndicatorArrow.href = '#events';
-                    // scrolling up
-                    if (currentY < previousY) {
-                        scrollIndicatorText.style.color = 'white';
-                        scrollIndicatorArrow.style.borderColor = 'white';
-                    }
-                    // scrolling down
-                    else if (currentY > previousY && entry.isIntersecting) {
-                        scrollIndicatorText.style.color = 'black';
-                        scrollIndicatorArrow.style.borderColor = 'black';
-                    }
-                    break;
-                case 'projects':
-                    // scrolling up
-                    if (currentY < previousY) {
-                        scrollIndicatorText.style.opacity = '1';
-                        scrollIndicatorArrow.style.opacity = '1';
-                    }    
-                    break;
+                }
             }
-            
         });
-    }, separateOptions);
-    
+    }, eBoardOptions);
+
+    // separate options and observer for website footer because of different behavior
+    const footerOptions = {
+        threshold: 0.01
+    };
+
+    const footerObserver = new IntersectionObserver((entries, footerObserver) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                scrollIndicatorText.style.opacity = '0';
+                scrollIndicatorArrow.style.opacity = '0';
+            }
+            else {
+                scrollIndicatorText.style.opacity = '1';
+                scrollIndicatorArrow.style.opacity = '1';
+            }
+        });
+    }, footerOptions);
+
     // call intersection observer for each section of the website to update scroll indicator at bottom of screen
     scrollIndicator.observe(about);
     scrollIndicator.observe(mission);
-    separateObserver.observe(eboard);
+    // call different intersection observer for desktop and mobile because of different behavior
+    if (desktop.matches) {
+        eboardObserver.observe(eboard);
+    }
+    else {
+        scrollIndicator.observe(eboard);
+    }
     scrollIndicator.observe(events);
-    separateObserver.observe(projects);
-    scrollIndicator.observe(contactUs);
+    scrollIndicator.observe(projects);
+    footerObserver.observe(contactUs);
     /* 
     --------------------------------------------------------------
     3. Smooth scrolling to sections on button and link click/tap
@@ -554,13 +550,10 @@ $(document).ready(function() {
         }
     });
 
-    let scrollbarLocation = window.pageYOffset;
-    console.log(scrollbarLocation);
-
     $(document).scroll(function() {
 
         // get current scrollbar location
-        // let scrollbarLocation = window.pageYOffset;
+        let scrollbarLocation = window.pageYOffset;
 
         /* 
         ===============================
