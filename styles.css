@@ -1435,6 +1435,25 @@ footer ul {
         padding: 0;
     }
 
+    .events-click-indicator {
+        position: absolute;
+        top: -2rem;
+        right: 0;
+        transition: all 250ms ease-in-out;
+        color: white;
+    }
+
+    .events-click-indicator-line {
+        position: absolute;
+        top: 0rem;
+        right: 3rem;
+        transform: rotate(35deg);
+        width: 3px;
+        height: 3rem;
+        background-color: white;
+        transition: all 250ms ease-in-out;
+    }
+
     .events-title {
         margin-top: 3rem;
         font-size: 3rem;
@@ -1458,6 +1477,13 @@ footer ul {
 
     .events-item-click {
         color: white;
+    }
+
+    .events-read-more {
+        position: absolute;
+        bottom: -3rem;
+        color: #b7b7b7;
+        transition: all 250ms ease-in-out;
     }
 
     /* tooltips that appear when hovering/clicking over the specific event text (functionality can be decided later) */
@@ -1489,7 +1515,6 @@ footer ul {
         transform: translateY(110%);
         opacity: 1;
     }
-
 
     /* before pseudoelements to connect the light blue line in this section  */
     #CSSPI::before,

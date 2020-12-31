@@ -517,38 +517,87 @@ $(document).ready(function() {
     ================================
     */
 
-    $('.events-item').click(function() {
-        eventsItem = $(this);
-        // this works because the event tooltip div is the only sibling of the event item title
-        let tooltip = $(this).siblings();
+    const eventsItems = document.querySelectorAll('.events-item');
 
-        if (tooltip.hasClass('above-tooltip')) {
-            // the event tooltip is supposed to show above the event item
-            if (tooltip.hasClass('above-tooltip-click')) {
-                // the event tooltip is already visible on screen and the event item has been clicked on
-                eventsItem.css({'color':'var(--blue)'});
-                tooltip.removeClass('above-tooltip-click');
+    const eventsClickIndicator = document.querySelector('.events-click-indicator');
+    const eventsClickIndicatorLine = document.querySelector('.events-click-indicator-line');
+    const eventsReadMore = document.querySelector('.events-read-more');
+
+    eventsItems.forEach(eventsItem => {
+        // the tooltip is the next sibling after events item title
+        let tooltip = eventsItem.nextElementSibling;
+
+        eventsItem.addEventListener('click', () => {
+            if (tooltip.classList.contains('above-tooltip')) {
+                // the event tooltip is supposed to show above the event item
+                if (tooltip.classList.contains('above-tooltip-click')) {
+                    // the event item has already been clicked on and tooltip is already visible on screen
+                    eventsItem.style.color = 'var(--blue)';
+                    tooltip.classList.remove('above-tooltip-click');
+                }
+                else {
+                    // the event item has not been clicked on and tooltip is not on screen
+                    eventsItem.style.color = 'white';
+                    tooltip.classList.add('above-tooltip-click');
+                }
             }
             else {
-                // the event text has not been clicked on and tooltip is not on screen
-                eventsItem.css({'color':'white'});
-                tooltip.addClass('above-tooltip-click');
+                // the tooltip is supposed to translate below the event item
+                if (tooltip.classList.contains('below-tooltip-click')) {
+                    // the event item has already been clicked on and tooltip is already visible on screen
+                    eventsItem.style.color = 'var(--blue)';
+                    tooltip.classList.remove('below-tooltip-click');
+                }
+                else {
+                    // the event item has not been clicked on and tooltip is not on screen
+                    eventsItem.style.color = 'white';
+                    tooltip.classList.add('below-tooltip-click');
+
+                    // these only appear the first time user is on website and disappear after first click
+                    // behavior can be changed here if needed later
+                    eventsClickIndicator.style.opacity = 0;
+                    eventsClickIndicatorLine.style.opacity = 0;
+                    eventsReadMore.style.opacity = 0;
+                }   
             }
-        }
-        else {
-            // the tooltip is supposed to translate down below the text
-            if (tooltip.hasClass('below-tooltip-click')) {
-                // tooltip is already on screen after clicking event text
-                eventsItem.css({'color':'var(--blue)'});
-                tooltip.removeClass('below-tooltip-click');
-            }
-            else {
-                // the event text has not been clicked on and tooltip is not on screen
-                eventsItem.css({'color':'white'});
-                tooltip.addClass('below-tooltip-click');
-            }
-        }
+        });
     });
+    
+
+    // $('.events-item').click(function() {
+    //     eventsItem = $(this);
+    //     let tooltip = $('.');
+
+    //     if (tooltip.hasClass('above-tooltip')) {
+    //         // the event tooltip is supposed to show above the event item
+    //         if (tooltip.hasClass('above-tooltip-click')) {
+    //             // the event tooltip is already visible on screen and the event item has been clicked on
+    //             eventsItem.css({'color':'var(--blue)'});
+    //             tooltip.removeClass('above-tooltip-click');
+    //         }
+    //         else {
+    //             // the event text has not been clicked on and tooltip is not on screen
+    //             eventsItem.css({'color':'white'});
+    //             tooltip.addClass('above-tooltip-click');
+    //             eventsClickIndicator.style.opacity = 0;
+    //             eventsClickIndicatorLine.style.opacity = 0;
+    //             eventsReadMore.style.opacity = 0;
+    //         }
+    //     }
+    //     else {
+    //         // the tooltip is supposed to translate down below the text
+    //         if (tooltip.hasClass('below-tooltip-click')) {
+    //             // tooltip is already on screen after clicking event text
+    //             eventsItem.css({'color':'var(--blue)'});
+    //             tooltip.removeClass('below-tooltip-click');
+    //         }
+    //         else {
+    //             // the event text has not been clicked on and tooltip is not on screen
+    //             eventsItem.css({'color':'white'});
+    //             tooltip.addClass('below-tooltip-click');
+    //         }
+    //     }
+    // });
 
     $(document).scroll(function() {
 
