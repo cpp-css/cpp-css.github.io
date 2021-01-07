@@ -226,14 +226,17 @@ $(document).ready(function() {
     const scrollButton = $('.smoothScroll');
     let $root = $('body, html');
 
-    scrollButton.click(function(event) {
-        event.preventDefault();
-        $root.animate({
-            scrollTop: $(this.hash).offset().top
-        // how much time it takes to smooth scroll in milliseconds
-        }, 2500);
-    });
-
+    // smooth scroll only on desktop
+    if (desktop.matches) {
+        scrollButton.click(function(event) {
+            event.preventDefault();
+            $root.animate({
+                scrollTop: $(this.hash).offset().top
+            // how much time it takes to smooth scroll in milliseconds
+            }, 2500);
+        });
+    }
+    
     /*
     ==================================
               Mobile Design 
