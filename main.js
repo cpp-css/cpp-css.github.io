@@ -54,6 +54,7 @@ $(document).ready(function() {
 
     // desktop media query
     let desktop = window.matchMedia('(min-width: 768px)');
+    // large desktop resolution media query
 
     /* 
     -------------------------------------------------
@@ -86,7 +87,7 @@ $(document).ready(function() {
     /* separate options for all other sections so scroll indicator is observed when at least 1% of the corresponding section is
     on screen */
     const sectionOptions = {
-        threshold: 0.01
+        threshold: [0.01, 0.25, 0.5, 0.75, 1.0]
     };
 
     const scrollIndicator = new IntersectionObserver((entries, scrollIndicator) => {
@@ -134,6 +135,7 @@ $(document).ready(function() {
                             scrollIndicatorArrow.href = '#e-board';
                             break;
                         case 'e-board':
+                            console.log('mobile e-board fired');
                             scrollIndicatorText.style.color = 'black';
                             scrollIndicatorArrow.style.borderColor = 'black';
                             scrollIndicatorArrow.href = '#events';
@@ -649,14 +651,14 @@ $(document).ready(function() {
                         // scale the computer gif up if scroll position above section
                         if (aboutOffset.top >= 0) {
                             typingComputer.style.transform =
-                                `translateX(${scrollbarLocation / (aboutOffset.top + aboutHeight) * 150 - 140}px)
+                                `translateX(${scrollbarLocation / (aboutOffset.top + aboutHeight) * 150 - 120}px)
                                 scale(${scrollbarLocation / (aboutOffset.top + aboutHeight) * 0.5 + 0.5})`
                         }
                         /* make the computer gif smaller up until the user has scrolled past the section by 25% of their viewport
                         height */
                         else if (aboutOffset.top >= -0.75 * viewportHeight) {
                             typingComputer.style.transform =
-                                `translateX(${scrollbarLocation / (aboutOffset.top + aboutHeight) * -150 + 160}px)
+                                `translateX(${scrollbarLocation / (aboutOffset.top + aboutHeight) * -150 + 180}px)
                                 scale(${scrollbarLocation / (aboutOffset.top + aboutHeight) * -0.5 + 1.5})`;
                         }
                         else {
@@ -710,6 +712,9 @@ $(document).ready(function() {
                 }
                 else {
                     missionTitle.style.transform = 'translateY(0px)';
+                    cardColumn1.style.transform = 'translateY(0px)';
+                    cardColumn2.style.transform = 'translateY(0px)';
+                    cardColumn3.style.transform = 'translateY(0px)';
                 }
             });
         }, parallaxOptions);

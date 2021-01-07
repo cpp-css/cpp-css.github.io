@@ -745,8 +745,13 @@ header {
     margin-bottom: 1rem;
 }
 
-.project-image {
+.project-media {
     display: initial;
+    width: 75%;
+    object-fit: cover;
+}
+
+.old-website-video {
     width: 100%;
 }
 
@@ -1445,8 +1450,8 @@ footer ul {
 
     .events-click-indicator-line {
         position: absolute;
-        top: 0rem;
-        right: 3rem;
+        top: -10%;
+        right: 13%;
         transform: rotate(35deg);
         width: 3px;
         height: 3rem;
@@ -1454,6 +1459,25 @@ footer ul {
         transition: all 250ms ease-in-out;
     }
 
+    .events-click-indicator-line::before,
+    .events-click-indicator-line::after {
+        content: '';
+        position: absolute;
+        width: 3px;
+        height: 1rem;
+        background-color: white;
+        bottom: -2%;
+    }
+
+    .events-click-indicator-line::before {
+        left: 180%;
+        transform: rotate(35deg);
+    }
+
+    .events-click-indicator-line::after {
+        right: 180%;
+        transform: rotate(-35deg);
+    }
     .events-title {
         margin-top: 3rem;
         font-size: 3rem;
@@ -1718,9 +1742,13 @@ footer ul {
         margin-top: 1rem;
     }
 
-    .project-image {
-        max-width: 25%;
+    .project-media {
+        max-width: 75%;
         margin: 0 auto;
+    }
+
+    .old-website-video {
+        width: 75%;
     }
 
     .projects-banner-container {
@@ -1922,6 +1950,14 @@ footer ul {
     .css-socials li {
         flex-flow: row nowrap;
         text-align: left;
+    }
+
+    .socials-link,
+    .socials-link:visited,
+    .socials-link:active {
+        color: white;
+        text-decoration: none;
+        outline: none;
     }
 
     .css-socials img {
