@@ -745,6 +745,11 @@ header {
     margin-bottom: 1rem;
 }
 
+.app-demo {
+    color: var(--blue);
+    text-decoration: none;
+}
+
 .project-media {
     display: initial;
     width: 75%;
@@ -803,6 +808,14 @@ footer ul {
 .css-socials img {
     display: initial;
     max-height: 2.5rem;
+}
+
+.socials-link,
+.socials-link:visited,
+.socials-link:active {
+    color: white;
+    text-decoration: none;
+    outline: none;
 }
 
 .footer-nav-links {
@@ -1742,6 +1755,10 @@ footer ul {
         margin-top: 1rem;
     }
 
+    .app-demo:hover {
+        text-decoration: underline;
+    }
+
     .project-media {
         max-width: 75%;
         margin: 0 auto;
@@ -1950,14 +1967,6 @@ footer ul {
     .css-socials li {
         flex-flow: row nowrap;
         text-align: left;
-    }
-
-    .socials-link,
-    .socials-link:visited,
-    .socials-link:active {
-        color: white;
-        text-decoration: none;
-        outline: none;
     }
 
     .css-socials img {
