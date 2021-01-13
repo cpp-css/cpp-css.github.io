@@ -1735,7 +1735,7 @@ footer ul {
         height: auto;
         margin: 0;
         flex-flow: row nowrap;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
         padding: 3rem 0;
         border: 5px solid white;
@@ -1757,6 +1757,10 @@ footer ul {
 
     .app-demo:hover {
         text-decoration: underline;
+    }
+
+    .project-media-container {
+        margin: 0 auto;
     }
 
     .project-media {

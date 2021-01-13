@@ -336,7 +336,7 @@ $(document).ready(function() {
     });
 
     // hide event description again after tapping on the transparent background or the event description itself
-    mobileEventsBackground.addEventListener('touchend', () => {
+    mobileEventsBackground.addEventListener('click', () => {
         // fade out background
         mobileEventsBackground.classList.remove('events-mobile-background-active');
         mobileEventsBackground.classList.add('events-mobile-background-inactive');
@@ -345,7 +345,7 @@ $(document).ready(function() {
         activeEventsItemContainer.classList.add('mobile-events-desc-container-inactive');
     });
     eventDescs.forEach(eventDesc => {
-        eventDesc.addEventListener('touchend', () => {
+        eventDesc.addEventListener('click', () => {
             // fade out background
             mobileEventsBackground.classList.remove('events-mobile-background-active');
             mobileEventsBackground.classList.add('events-mobile-background-inactive');
