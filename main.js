@@ -135,7 +135,6 @@ $(document).ready(function() {
                             scrollIndicatorArrow.href = '#e-board';
                             break;
                         case 'e-board':
-                            console.log('mobile e-board fired');
                             scrollIndicatorText.style.color = 'black';
                             scrollIndicatorArrow.style.borderColor = 'black';
                             scrollIndicatorArrow.href = '#events';
@@ -255,16 +254,23 @@ $(document).ready(function() {
     const navbarLinks = document.querySelectorAll('.navbar-link');
 
     // open the hamburger navigation menu
-    hamburgerMenuContainer.addEventListener('touchend', () => {
+    hamburgerMenuContainer.addEventListener('touchend', event => {
+        event.preventDefault();
         navbarContainer.classList.add('navbar-container-active');
     });
 
     // exit the hamburger navigation menu after tapping exit button or clicking a navigation link
-    hamburgerExitBttn.addEventListener('touchend', () => {
+    hamburgerExitBttn.addEventListener('touchend', event => {
+        event.preventDefault();
         navbarContainer.classList.remove('navbar-container-active');
     });
     navbarLinks.forEach(navbarLink => {
-        navbarLink.addEventListener('touchend', () => {
+        navbarLink.addEventListener('touchend', event => {
+            // check if mobile navigation link currently being tapped is "about" section
+            if (navbarLink.href == '#about') {
+                console.log('fired');
+            }
+            console.log(navbarLink.href);
             navbarContainer.classList.remove('navbar-container-active');
         });
     });
@@ -297,46 +303,74 @@ $(document).ready(function() {
     // initialize variable now to set active container later
     let activeEventsItemContainer; 
 
-    mobileEventsButtons.forEach(button => {
-        // when the button is tapped
-        button.addEventListener('touchend', () => {
-            mobileEventsBackground.classList.remove('events-mobile-background-inactive');
+    // initalize variables to figure out if user is actually tapping or swiping on mobile
+    let startY;
+    let yDistance;
 
-            // figure out which color and event description to display on click depending on id of button
-            switch (button.id) {
-                case 'first-mobile-event':
-                    mobileEventsBackground.style.backgroundColor = csspiColor;
-                    mobileEventsBackground.classList.add('events-mobile-background-active');
-                    mobileCSSPI.classList.add('mobile-events-desc-container-active');
-                    break;
-                case 'second-mobile-event':
-                    mobileEventsBackground.style.backgroundColor = speakerColor;
-                    mobileEventsBackground.classList.add('events-mobile-background-active');
-                    mobileSpeaker.classList.add('mobile-events-desc-container-active');
-                    break;
-                case 'third-mobile-event':
-                    mobileEventsBackground.style.backgroundColor = workshopsColor;
-                    mobileEventsBackground.classList.add('events-mobile-background-active');
-                    mobileWorkshops.classList.add('mobile-events-desc-container-active');
-                    break;
-                case 'fourth-mobile-event':
-                    mobileEventsBackground.style.backgroundColor = recruiterColor;
-                    mobileEventsBackground.classList.add('events-mobile-background-active');
-                    mobileRecruiter.classList.add('mobile-events-desc-container-active');
-                    break;
-                case 'fifth-mobile-event':
-                    mobileEventsBackground.style.backgroundColor = webDesignColor;
-                    mobileEventsBackground.classList.add('events-mobile-background-active');
-                    mobileWebDesign.classList.add('mobile-events-desc-container-active');
-                    break;
+    // touch event handler to store touches
+    let touchHandler = event => {
+        touch = event.changedTouches[0];
+    };
+    
+    mobileEventsButtons.forEach(button => {
+        // user first touches the mobile events button on screen
+        button.addEventListener('touchstart', touchHandler);
+
+        // user is currently touching button is also swiping
+        button.addEventListener('touchmove', touchHandler);
+
+        // store the current y position when user starts the touch of button
+        button.addEventListener('touchstart', () => {
+            startY = touch.clientY;
+        });
+
+        /* compare y distance from the point when user first touched the screen to when user lifts finger
+        off screen */
+        button.addEventListener('touchend', event => {
+
+            yDistance = startY - touch.clientY;
+
+            // if the distance is less than 30 pixels, it is a tap, not a swipe
+            if (Math.abs(yDistance) < 30) {
+                mobileEventsBackground.classList.remove('events-mobile-background-inactive');
+
+                // figure out which color and event description to display on click depending on id of button
+                switch (button.id) {
+                    case 'first-mobile-event':
+                        mobileEventsBackground.style.backgroundColor = csspiColor;
+                        mobileEventsBackground.classList.add('events-mobile-background-active');
+                        mobileCSSPI.classList.add('mobile-events-desc-container-active');
+                        break;
+                    case 'second-mobile-event':
+                        mobileEventsBackground.style.backgroundColor = speakerColor;
+                        mobileEventsBackground.classList.add('events-mobile-background-active');
+                        mobileSpeaker.classList.add('mobile-events-desc-container-active');
+                        break;
+                    case 'third-mobile-event':
+                        mobileEventsBackground.style.backgroundColor = workshopsColor;
+                        mobileEventsBackground.classList.add('events-mobile-background-active');
+                        mobileWorkshops.classList.add('mobile-events-desc-container-active');
+                        break;
+                    case 'fourth-mobile-event':
+                        mobileEventsBackground.style.backgroundColor = recruiterColor;
+                        mobileEventsBackground.classList.add('events-mobile-background-active');
+                        mobileRecruiter.classList.add('mobile-events-desc-container-active');
+                        break;
+                    case 'fifth-mobile-event':
+                        mobileEventsBackground.style.backgroundColor = webDesignColor;
+                        mobileEventsBackground.classList.add('events-mobile-background-active');
+                        mobileWebDesign.classList.add('mobile-events-desc-container-active');
+                        break;
+                }
+                // set active item container
+                activeEventsItemContainer = document.querySelector('.mobile-events-desc-container-active');
             }
-            // set active item container
-            activeEventsItemContainer = document.querySelector('.mobile-events-desc-container-active');
         });
     });
 
     // hide event description again after tapping on the transparent background or the event description itself
-    mobileEventsBackground.addEventListener('click', () => {
+    mobileEventsBackground.addEventListener('touchend', event => {
+        event.preventDefault();
         // fade out background
         mobileEventsBackground.classList.remove('events-mobile-background-active');
         mobileEventsBackground.classList.add('events-mobile-background-inactive');
@@ -345,7 +379,8 @@ $(document).ready(function() {
         activeEventsItemContainer.classList.add('mobile-events-desc-container-inactive');
     });
     eventDescs.forEach(eventDesc => {
-        eventDesc.addEventListener('click', () => {
+        eventDesc.addEventListener('touchend', event => {
+            event.preventDefault();
             // fade out background
             mobileEventsBackground.classList.remove('events-mobile-background-active');
             mobileEventsBackground.classList.add('events-mobile-background-inactive');
