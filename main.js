@@ -56,6 +56,12 @@ $(document).ready(function() {
     let desktop = window.matchMedia('(min-width: 768px)');
     // large desktop resolution media query
 
+    // about section elements
+    // these need to be declared here to prevent the elements inside the section clipping on mobile design
+    const aboutTitle = document.querySelector('.about-title');
+    const typingComputer = document.querySelector('.about-computer');
+    const aboutDesc = document.querySelector('.about-desc-wrapper');
+
     /* 
     -------------------------------------------------
     2. Dynamic scroll indicator at bottom of screen
@@ -267,10 +273,13 @@ $(document).ready(function() {
     navbarLinks.forEach(navbarLink => {
         navbarLink.addEventListener('touchend', event => {
             // check if mobile navigation link currently being tapped is "about" section
-            if (navbarLink.href == '#about') {
+            if (navbarLink.href == 'http://127.0.0.1:5500/#about') {
+                aboutTitle.style.transform = 'translateY(0px)';
+                aboutDesc.style.transform = 'translateY(0px)';
+                typingComputer.style.transform = 'translateY(0px)';
                 console.log('fired');
             }
-            console.log(navbarLink.href);
+            
             navbarContainer.classList.remove('navbar-container-active');
         });
     });
@@ -602,42 +611,6 @@ $(document).ready(function() {
             }
         });
     });
-    
-
-    // $('.events-item').click(function() {
-    //     eventsItem = $(this);
-    //     let tooltip = $('.');
-
-    //     if (tooltip.hasClass('above-tooltip')) {
-    //         // the event tooltip is supposed to show above the event item
-    //         if (tooltip.hasClass('above-tooltip-click')) {
-    //             // the event tooltip is already visible on screen and the event item has been clicked on
-    //             eventsItem.css({'color':'var(--blue)'});
-    //             tooltip.removeClass('above-tooltip-click');
-    //         }
-    //         else {
-    //             // the event text has not been clicked on and tooltip is not on screen
-    //             eventsItem.css({'color':'white'});
-    //             tooltip.addClass('above-tooltip-click');
-    //             eventsClickIndicator.style.opacity = 0;
-    //             eventsClickIndicatorLine.style.opacity = 0;
-    //             eventsReadMore.style.opacity = 0;
-    //         }
-    //     }
-    //     else {
-    //         // the tooltip is supposed to translate down below the text
-    //         if (tooltip.hasClass('below-tooltip-click')) {
-    //             // tooltip is already on screen after clicking event text
-    //             eventsItem.css({'color':'var(--blue)'});
-    //             tooltip.removeClass('below-tooltip-click');
-    //         }
-    //         else {
-    //             // the event text has not been clicked on and tooltip is not on screen
-    //             eventsItem.css({'color':'white'});
-    //             tooltip.addClass('below-tooltip-click');
-    //         }
-    //     }
-    // });
 
     $(document).scroll(function() {
 
@@ -657,10 +630,8 @@ $(document).ready(function() {
         */
         const aboutOffset = about.getBoundingClientRect();
         const aboutHeight = about.offsetHeight;
-        const aboutTitle = document.querySelector('.about-title');
+        
         const blueLine = document.querySelector('.about-blue-line');
-        const aboutDesc = document.querySelector('.about-desc-wrapper');
-        const typingComputer = document.querySelector('.about-computer');
 
         const parallaxOptions = {
         };
