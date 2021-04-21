@@ -1917,6 +1917,7 @@ footer ul {
     .comp-sci-logo {
         margin: 0 auto;
         order: unset;
+        transform: scale(0.6);
     }
 
     .footer-container li {
@@ -1953,6 +1954,9 @@ footer ul {
 
     .css-socials {
         order: unset;
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
     }
 
     .css-socials li {
